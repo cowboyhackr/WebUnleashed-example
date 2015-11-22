@@ -7,7 +7,7 @@
  * # globe
  */
 angular.module('webunleashedExampleApp')
-	.directive('globe', ['sphereFactory',function (sphereFactory) {
+	.directive('globe', ['unitFactory',function (unitFactory) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -51,64 +51,13 @@ angular.module('webunleashedExampleApp')
 	    plane.visible = false;
 	    scene.add(plane);
 
-	    var lineMaterial = new THREE.LineBasicMaterial({
-	    	color: 0xffffff,
-	    	linewidth:1000
-	    });
-
 /*	    controls.enabled = false;
 	    controls.addEventListener('change', render);*/
 
-/*		var twoDWireFrameGeometry = new THREE.Geometry();
-	    twoDWireFrameGeometry.vertices.push(new THREE.Vector3(-20, 0, 0));
-	    twoDWireFrameGeometry.vertices.push(new THREE.Vector3(-20, 10, 0));
-	    twoDWireFrameGeometry.vertices.push(new THREE.Vector3(0, 10, 0));
-	    twoDWireFrameGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-	    twoDWireFrameGeometry.vertices.push(new THREE.Vector3(-20, 0, 0));
 
-	    twoDWireFrameGeometry.faces.push(new THREE.Face3(0,1,2));
-	    var twoDWireFrameLine = new THREE.Line(twoDWireFrameGeometry, lineMaterial);
-	    scene.add(twoDWireFrameLine);
-	    this.objects.push(twoDWireFrameLine);*/
 
-	    var x, y, z;
-	    x = 0;
-	    y = -20;
-	    z = 0;
-
-	    var complexTwoDWireFrameGeometry = new THREE.Geometry();
-	    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x - 20, y - 10, z));
-	    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x -20, y, z));
-	    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x, y, z));
-	    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x, y - 10, z));
-	    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(-20, y - 10, z));
-	    complexTwoDWireFrameGeometry.faces.push(new THREE.Face3(0,1,2));
-	    var complexTwoDWireFrameLine = new THREE.Line(complexTwoDWireFrameGeometry, lineMaterial);
-
-/*	    scene.add(complexTwoDWireFrameLine);
-	    objects.push(complexTwoDWireFrameLine);*/
-
-	    var widthGableGeometry = new THREE.Geometry();
-	    widthGableGeometry.vertices.push(new THREE.Vector3(0, y + 5, z));
-	    widthGableGeometry.vertices.push(new THREE.Vector3(x -20, y + 5, z));
-	    widthGableGeometry.faces.push(new THREE.Face3(0,1,2));
-	    var widthGableFrameLine = new THREE.Line(widthGableGeometry, lineMaterial);
-/*	    scene.add(widthGableFrameLine);
-	    objects.push(widthGableFrameLine);*/
-
-	    var heighthGableGeometry = new THREE.Geometry();
-	    heighthGableGeometry.vertices.push(new THREE.Vector3(-25, y - 10, 0));
-	    heighthGableGeometry.vertices.push(new THREE.Vector3(-25, y , 0));
-	    var heighthGableLine = new THREE.Line(heighthGableGeometry, lineMaterial);
-/*	    scene.add(heighthGableGeometry);
-	    objects.push(heighthGableGeometry);*/
-		
-		var gableObject3d = new THREE.Object3D();
-		gableObject3d.add(complexTwoDWireFrameLine);
-		gableObject3d.add(widthGableFrameLine);
-		gableObject3d.add(heighthGableLine);
-
-		scene.add(gableObject3d);
+		var gable = unitFactory.createGable();
+		scene.add(gable);
 	    
 	    var box = new THREE.BoxGeometry( 30, 30, 2 );
 	    var material = new THREE.MeshBasicMaterial( { color: 0xff0000, vertexColors: THREE.FaceColors } );
