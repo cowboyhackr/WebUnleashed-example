@@ -84,25 +84,32 @@ angular.module('webunleashedExampleApp')
 	    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(-20, y - 10, z));
 	    complexTwoDWireFrameGeometry.faces.push(new THREE.Face3(0,1,2));
 	    var complexTwoDWireFrameLine = new THREE.Line(complexTwoDWireFrameGeometry, lineMaterial);
-	    scene.add(complexTwoDWireFrameLine);
-	    objects.push(complexTwoDWireFrameLine);
+
+/*	    scene.add(complexTwoDWireFrameLine);
+	    objects.push(complexTwoDWireFrameLine);*/
 
 	    var widthGableGeometry = new THREE.Geometry();
 	    widthGableGeometry.vertices.push(new THREE.Vector3(0, y + 5, z));
 	    widthGableGeometry.vertices.push(new THREE.Vector3(x -20, y + 5, z));
 	    widthGableGeometry.faces.push(new THREE.Face3(0,1,2));
 	    var widthGableFrameLine = new THREE.Line(widthGableGeometry, lineMaterial);
-	    scene.add(widthGableFrameLine);
-	    objects.push(widthGableFrameLine);
+/*	    scene.add(widthGableFrameLine);
+	    objects.push(widthGableFrameLine);*/
 
 	    var heighthGableGeometry = new THREE.Geometry();
 	    heighthGableGeometry.vertices.push(new THREE.Vector3(-25, y - 10, 0));
 	    heighthGableGeometry.vertices.push(new THREE.Vector3(-25, y , 0));
-	    var heighthGableGeometry = new THREE.Line(heighthGableGeometry, lineMaterial);
-	    scene.add(heighthGableGeometry);
-	    objects.push(heighthGableGeometry);
+	    var heighthGableLine = new THREE.Line(heighthGableGeometry, lineMaterial);
+/*	    scene.add(heighthGableGeometry);
+	    objects.push(heighthGableGeometry);*/
+		
+		var gableObject3d = new THREE.Object3D();
+		gableObject3d.add(complexTwoDWireFrameLine);
+		gableObject3d.add(widthGableFrameLine);
+		gableObject3d.add(heighthGableLine);
 
-
+		scene.add(gableObject3d);
+	    
 	    var box = new THREE.BoxGeometry( 30, 30, 2 );
 	    var material = new THREE.MeshBasicMaterial( { color: 0xff0000, vertexColors: THREE.FaceColors } );
 
