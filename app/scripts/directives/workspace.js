@@ -56,8 +56,10 @@ angular.module('webunleashedExampleApp')
 
 
 
-		var gable = unitFactory.createGable();
+		var gable = unitFactory.createGable(0,-20);
 		scene.add(gable);
+		var gable1 = unitFactory.createGable(10,0);
+		scene.add(gable1);
 	    
 	    var box = new THREE.BoxGeometry( 30, 30, 2 );
 	    var material = new THREE.MeshBasicMaterial( { color: 0xff0000, vertexColors: THREE.FaceColors } );

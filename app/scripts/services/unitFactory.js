@@ -16,11 +16,11 @@ angular.module('webunleashedExampleApp')
 		var mapUrl = "../images/earthmap4k.jpg";
 		var bumpMapUrl = "../images/earthbump4k.jpg"
 
-		var createGable = function(color){
+		var createGable = function(xIn,yIn){
 
 			var x, y, z;
-		    x = 0;
-		    y = -20;
+		    x = xIn;
+		    y = yIn;
 		    z = 0;
 
 		    var lineMaterial = new THREE.LineBasicMaterial({
@@ -33,7 +33,7 @@ angular.module('webunleashedExampleApp')
 		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x -20, y, z));
 		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x, y, z));
 		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x, y - 10, z));
-		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(-20, y - 10, z));
+		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x-20, y - 10, z));
 		    complexTwoDWireFrameGeometry.faces.push(new THREE.Face3(0,1,2));
 		    var complexTwoDWireFrameLine = new THREE.Line(complexTwoDWireFrameGeometry, lineMaterial);
 
@@ -41,7 +41,7 @@ angular.module('webunleashedExampleApp')
 		    objects.push(complexTwoDWireFrameLine);*/
 
 		    var widthGableGeometry = new THREE.Geometry();
-		    widthGableGeometry.vertices.push(new THREE.Vector3(0, y + 5, z));
+		    widthGableGeometry.vertices.push(new THREE.Vector3(x, y + 5, z));
 		    widthGableGeometry.vertices.push(new THREE.Vector3(x -20, y + 5, z));
 		    widthGableGeometry.faces.push(new THREE.Face3(0,1,2));
 		    var widthGableFrameLine = new THREE.Line(widthGableGeometry, lineMaterial);
@@ -49,8 +49,8 @@ angular.module('webunleashedExampleApp')
 		    objects.push(widthGableFrameLine);*/
 
 		    var heighthGableGeometry = new THREE.Geometry();
-		    heighthGableGeometry.vertices.push(new THREE.Vector3(-25, y - 10, 0));
-		    heighthGableGeometry.vertices.push(new THREE.Vector3(-25, y , 0));
+		    heighthGableGeometry.vertices.push(new THREE.Vector3(x-25, y - 10, z));
+		    heighthGableGeometry.vertices.push(new THREE.Vector3(x-25, y , z));
 		    var heighthGableLine = new THREE.Line(heighthGableGeometry, lineMaterial);
 	/*	    scene.add(heighthGableGeometry);
 		    objects.push(heighthGableGeometry);*/
