@@ -55,7 +55,8 @@ angular.module('webunleashedExampleApp')
 	    controls.addEventListener('change', render);*/
 
 
-
+		var gable0 = unitFactory.createGable(-80,-20);
+		scene.add(gable0);
 		var gable = unitFactory.createGable(0,-20);
 		scene.add(gable);
 		var gable1 = unitFactory.createGable(10,0);
