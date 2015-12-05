@@ -5,7 +5,7 @@ angular.module('webunleashedExampleApp')
 	.factory('originFactory', function () {
 
 
-		var drawOriginPoint = function(){
+		var drawOriginPoint = function(originLength){
 
 			var green = 0x00FF00;
 			var blue = 0x0000FF;
@@ -17,7 +17,7 @@ angular.module('webunleashedExampleApp')
 
 	    	var xlineGeometry = new THREE.Geometry();
 		    xlineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-		    xlineGeometry.vertices.push(new THREE.Vector3(100, 0, 0));
+		    xlineGeometry.vertices.push(new THREE.Vector3(originLength, 0, 0));
 		    var xLine = new THREE.Line(xlineGeometry, xlineMaterial);
 
 
@@ -28,7 +28,7 @@ angular.module('webunleashedExampleApp')
 
 	    	var ylineGeometry = new THREE.Geometry();
 		    ylineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-		    ylineGeometry.vertices.push(new THREE.Vector3(0, 100, 0));
+		    ylineGeometry.vertices.push(new THREE.Vector3(0, originLength, 0));
 		    var yLine = new THREE.Line(ylineGeometry, ylineMaterial);
 		    
 
@@ -39,7 +39,7 @@ angular.module('webunleashedExampleApp')
 
 	    	var zlineGeometry = new THREE.Geometry();
 		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, 100));
+		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, originLength));
 		    var zLine = new THREE.Line(zlineGeometry, zlineMaterial);
 
 		    var originObject3d = new THREE.Object3D();
@@ -51,12 +51,12 @@ angular.module('webunleashedExampleApp')
 
 		}
 
-		var drawGrid = function ( size, step ) {
+		var drawGrid = function ( size, step, originLength ) {
 
 			var geometry = new THREE.Geometry();
 			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
 
-			this.color1 = new THREE.Color( 0xff0000 );
+			this.color1 = new THREE.Color( 0x888888 );
 			this.color2 = new THREE.Color( 0x888888 );
 
 			for ( var i = - size; i <= size; i += step ) {
@@ -77,6 +77,28 @@ angular.module('webunleashedExampleApp')
 
 					geometry.colors.push( color, color, color, color );
 
+				}else{
+					geometry.vertices.push(
+						new THREE.Vector3( - size, 0, 0 ), 
+						new THREE.Vector3( 0, 0, 0),
+						new THREE.Vector3( originLength, 0, 0 ), 
+						new THREE.Vector3( size, 0, 0 )
+					);
+
+					var color = i === 0 ? this.color1 : this.color2;
+
+					geometry.colors.push( color, color, color, color );
+
+					geometry.vertices.push(
+						new THREE.Vector3( 0, 0, - size ), 
+						new THREE.Vector3( 0, 0, 0),
+						new THREE.Vector3( 0, 0, originLength ), 
+						new THREE.Vector3( 0, 0, size )
+					);
+
+					var color = i === 0 ? this.color1 : this.color2;
+
+					geometry.colors.push( color, color, color, color );
 				}
 			}
 

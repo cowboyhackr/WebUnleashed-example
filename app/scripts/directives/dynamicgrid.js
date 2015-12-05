@@ -49,10 +49,10 @@ angular.module('webunleashedExampleApp')
 				camera.lookAt(new THREE.Vector3(0,0,0));
 
 				// world
-				var origin = originFactory.drawOriginPoint();
+				var origin = originFactory.drawOriginPoint(100);
 				scene.add(origin);
 
-				var grid = originFactory.drawGrid(1000, 10);
+				var grid = originFactory.drawGrid(1000, 10, 100);
 				scene.add(grid);
 
 				// lights
