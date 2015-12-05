@@ -49,10 +49,12 @@ angular.module('webunleashedExampleApp')
 				camera.lookAt(new THREE.Vector3(0,0,0));
 
 				// world
-				var origin = originFactory.drawOriginPoint(100);
+				var originLength = 33;
+				var origin = originFactory.drawOriginPoint(originLength);
 				scene.add(origin);
 
-				var grid = originFactory.drawGrid(1000, 10, 100);
+				var grid = originFactory.drawGrid(1000, 10, originLength);
+				grid.name = "grid";
 				scene.add(grid);
 
 				// lights
@@ -102,13 +104,22 @@ angular.module('webunleashedExampleApp')
 
 			function render() {
 
-				renderer.render( scene, camera );
-/*				if(camera.position.x < 1){
-				    console.log("zooming...");
-					var grid = new THREE.GridHelper(1000, 1);
+				
+				console.log(camera.position.y);
+
+				if(camera.position.y < 50){
+
+					var gridObject = scene.getObjectByName("grid");
+
+					scene.remove(gridObject);
+
+					var originLength = 100;
+					var grid = originFactory.drawGrid(1000, 5, originLength);
+					grid.name = "grid";
 					scene.add(grid);
-				}*/
-				//console.log(camera.position.x);
+				}
+
+				renderer.render( scene, camera );
 			}
 
 
