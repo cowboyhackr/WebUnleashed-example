@@ -136,6 +136,7 @@
 				// Controls
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
 				controls.damping = 0.2;
+				controls.noRotate = true;
 				controls.addEventListener( 'change', render );
 
 				transformControl = new THREE.TransformControls( camera, renderer.domElement );

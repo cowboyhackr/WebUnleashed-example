@@ -7,7 +7,7 @@
  * # globe
  */
 angular.module('webunleashedExampleApp')
-	.directive('globe', ['unitFactory',function (unitFactory) {
+	.directive('globe', ['originFactory',function (unitFactory) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -42,17 +42,17 @@ angular.module('webunleashedExampleApp')
 		var camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 1000);
 		camera.position.set(0,0,100);
 		camera.lookAt(scene.position);
-/*		controls = new THREE.OrbitControls(camera);
+		controls = new THREE.OrbitControls(camera);
 		controls.target = new THREE.Vector3(0, 0, 0);
-		controls.maxDistance = 150;*/
+		controls.maxDistance = 150;
 
 	    // Plane, that helps to determinate an intersection position
 	    plane = new THREE.Mesh(new THREE.PlaneBufferGeometry(500, 500, 8, 8), new THREE.MeshBasicMaterial({color: 0xffffff}));
 	    plane.visible = false;
 	    scene.add(plane);
 
-/*	    controls.enabled = false;
-	    controls.addEventListener('change', render);*/
+	    //controls.enabled = false;
+	    controls.addEventListener('change', render);
 
 
 		var gable0 = unitFactory.createGable(-80,-20);
@@ -173,6 +173,7 @@ angular.module('webunleashedExampleApp')
 		  requestAnimationFrame(animate);
 		  render();
 		  //update();
+
 		}
 
 			}
