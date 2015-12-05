@@ -7,8 +7,11 @@ angular.module('webunleashedExampleApp')
 
 		var drawOriginPoint = function(){
 
+			var green = 0x00FF00;
+			var blue = 0x0000FF;
+			var red = 0xFF0000;
 	    	var xlineMaterial = new THREE.LineBasicMaterial({
-		    	color: 0x00FF00,
+		    	color: red,
 		    	linewidth:5000
 	    	});
 
@@ -19,7 +22,7 @@ angular.module('webunleashedExampleApp')
 
 
 	    	var ylineMaterial = new THREE.LineBasicMaterial({
-		    	color:  0x0000FF,
+		    	color:  blue,
 		    	linewidth:5000
 	    	});
 
@@ -30,7 +33,7 @@ angular.module('webunleashedExampleApp')
 		    
 
 	    	var zlineMaterial = new THREE.LineBasicMaterial({
-		    	color: 0x0000FF,
+		    	color: green,
 		    	linewidth:5000
 	    	});
 
