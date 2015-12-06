@@ -61,10 +61,10 @@ angular.module('webunleashedExampleApp')
 
 			for ( var i = - size; i <= size; i += step ) {
 
-
 				var onAxis = i === 0 || size ===0;
 
 				if(!onAxis) {
+					
 					geometry.vertices.push(
 						new THREE.Vector3( - size, 0, i ), 
 						new THREE.Vector3( size, 0, i ),
@@ -77,7 +77,7 @@ angular.module('webunleashedExampleApp')
 					geometry.colors.push( color, color, color, color );
 
 				}else{
-					
+
 					geometry.vertices.push(
 						new THREE.Vector3( - size, 0, 0 ), 
 						new THREE.Vector3( 0, 0, 0),

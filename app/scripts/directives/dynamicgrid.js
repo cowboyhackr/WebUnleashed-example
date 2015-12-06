@@ -18,6 +18,22 @@ angular.module('webunleashedExampleApp')
 			link: function postLink(scope, element, attrs) {
 				
 			var camera, controls, scene, renderer;
+			var originLength = 33;
+			var zoomLevel = 10;
+
+/*			STEP    Grid Ratio         camera.position.y
+			10  	10' x 10'          > 50
+			5   	5' x 5'			   > 25
+			2   	2' x 2'            > 12.5
+			1   	1' x 1'			   > 6.25
+			.5  	6" x 6"            > 3.125
+			.25 	3" x 3"			   > 1.56
+			.083 	1" x 1"            > .78
+			.041  	1/2" x 1/2"        > .39
+			.02  	1/4" x 1/4"        > .195
+			.01  	1/8" x 1/8"        > .098
+			.005 	1/16" x 1/16"      >  .049    
+			*/ 
 
 			init();
 			animate();
@@ -35,7 +51,7 @@ angular.module('webunleashedExampleApp')
 				document.body.appendChild(renderer.domElement);
 
 				camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
-				camera.position.set( 500, 0, 0 );
+				//camera.position.set( 500, 0, 0 );
 
 
 				controls = new THREE.OrbitControls( camera, renderer.domElement );
@@ -44,12 +60,12 @@ angular.module('webunleashedExampleApp')
 				controls.dampingFactor = 0.25;
 				controls.enableZoom = true;
 
-				camera.position.set(500,100,100);
+				camera.position.set(55,55,55);
 				//camera.up = new THREE.Vector3(1,1,1);
 				camera.lookAt(new THREE.Vector3(0,0,0));
 
 				// world
-				var originLength = 33;
+				
 				var origin = originFactory.drawOriginPoint(originLength);
 				scene.add(origin);
 
@@ -107,13 +123,13 @@ angular.module('webunleashedExampleApp')
 				
 				console.log(camera.position.y);
 
-				if(camera.position.y < 50){
+				if(camera.position.y < 50 ){
 
 					var gridObject = scene.getObjectByName("grid");
 
 					scene.remove(gridObject);
 
-					var originLength = 100;
+	
 					var grid = originFactory.drawGrid(1000, 5, originLength);
 					grid.name = "grid";
 					scene.add(grid);
