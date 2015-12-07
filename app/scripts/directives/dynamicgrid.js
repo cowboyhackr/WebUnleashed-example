@@ -7,7 +7,7 @@
  * # globe
  */
 angular.module('webunleashedExampleApp')
-	.directive('dynamicgrid', ['originFactory',function (originFactory) {
+	.directive('dynamicgrid', ['worldframework',function (worldframework) {
 		return {
 			restrict: 'E',
 			scope: {
@@ -19,7 +19,7 @@ angular.module('webunleashedExampleApp')
 				
 			var camera, controls, scene, renderer;
 			var originLength = 33;
-			var zoomLevel = 10;
+			var zoomLevel;
 
 /*			STEP    Grid Ratio         camera.position.y
 			10  	10' x 10'          > 50
@@ -40,6 +40,7 @@ angular.module('webunleashedExampleApp')
 
 			function init() {
 
+				zoomLevel = 10;
 				scene = new THREE.Scene();
 				scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
 
@@ -66,10 +67,10 @@ angular.module('webunleashedExampleApp')
 
 				// world
 				
-				var origin = originFactory.drawOriginPoint(originLength);
+				var origin = worldframework.drawOriginPoint(originLength);
 				scene.add(origin);
 
-				var grid = originFactory.drawGrid(1000, 10, originLength);
+				var grid = worldframework.drawGrid(1000, 10, originLength);
 				grid.name = "grid";
 				scene.add(grid);
 
@@ -121,19 +122,21 @@ angular.module('webunleashedExampleApp')
 			function render() {
 
 				
-				console.log(camera.position.y);
 
-				if(camera.position.y < 50 ){
+
+/*				if(camera.position.y < 50 ){
 
 					var gridObject = scene.getObjectByName("grid");
 
 					scene.remove(gridObject);
 
 	
-					var grid = originFactory.drawGrid(1000, 5, originLength);
+					var grid = worldframework.drawGrid(1000, 5, originLength);
 					grid.name = "grid";
 					scene.add(grid);
-				}
+				}*/
+
+				worldframework.drawGridToZoomLevel(color.position.y, zoomLevel, originLength);
 
 				renderer.render( scene, camera );
 			}
