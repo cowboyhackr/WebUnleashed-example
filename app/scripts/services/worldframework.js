@@ -109,7 +109,7 @@ angular.module('webunleashedExampleApp')
 
 			console.log("step " + step);
 			if(beginZoomLevel != angular.zoomLevel){
-				var grid = this.drawGrid(1000, step, originLength);
+				var grid = this.drawGrid(100, step, originLength);
 				grid.name = "grid";
 				return grid;
 			}else{

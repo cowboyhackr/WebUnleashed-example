@@ -97,6 +97,7 @@ angular.module('webunleashedExampleApp')
 
 				function render() {
 
+					console.log(camera.position.y);
 					var grid = worldframework.drawGridToZoomLevel(camera.position.y, originLength);
 					if(grid !== undefined){
 						var gridObject = scene.getObjectByName("grid");
