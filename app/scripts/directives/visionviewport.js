@@ -21,7 +21,8 @@ angular.module('webunleashedExampleApp')
 				function init() {
 
 					scene = new THREE.Scene();
-					scene.fog = new THREE.FogExp2( 0xcccccc, 0.002 );
+					scene.fog = new THREE.Fog( 0xcccccc, 999, 1000 );
+			
 
 					renderer = new THREE.WebGLRenderer();
 					renderer.setClearColor( scene.fog.color );
@@ -35,12 +36,14 @@ angular.module('webunleashedExampleApp')
 
 
 					controls = new THREE.OrbitControls( camera, renderer.domElement );
+					controls.minDistance = -100;
+					controls.minZoom = -100;
 					//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
 					controls.enableDamping = true;
-					controls.dampingFactor = 0.25;
+					controls.dampingFactor = 0.75;
 					controls.enableZoom = true;
 
-					camera.position.set(55,55,55);
+					camera.position.set(1000,1000,1000);
 					//camera.up = new THREE.Vector3(1,1,1);
 					camera.lookAt(new THREE.Vector3(0,0,0));
 
@@ -49,7 +52,7 @@ angular.module('webunleashedExampleApp')
 					var origin = worldframework.drawOriginPoint(originLength);
 					scene.add(origin);
 
-					var grid = worldframework.drawGrid(1000, 10, originLength);
+					var grid = worldframework.drawGrid(1000, 120, originLength);
 					grid.name = "grid";
 					scene.add(grid);
 
@@ -66,9 +69,17 @@ angular.module('webunleashedExampleApp')
 					light = new THREE.AmbientLight( 0x222222 );
 					scene.add( light );
 
-					//
+					// Reference shape
 
-
+					var geometry = new THREE.BoxGeometry( 240, 240,240 );
+				    var material = new THREE.MeshLambertMaterial( { color: 0xFF0000 } );
+				    var mesh = new THREE.Mesh( geometry, material );
+					var cube = new THREE.Object3D();
+					cube.add(mesh);
+					cube.position.y = 120;
+					cube.position.x = 120;
+					cube.position.z = 120;
+				    scene.add( cube );
 
 					//
 
