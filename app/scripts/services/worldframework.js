@@ -15,7 +15,7 @@ angular.module('webunleashedExampleApp')
 	    	});
 
 	    	var xlineGeometry = new THREE.Geometry();
-		    xlineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
+		    xlineGeometry.vertices.push(new THREE.Vector3(- originLength, 0, 0));
 		    xlineGeometry.vertices.push(new THREE.Vector3(originLength, 0, 0));
 		    var xLine = new THREE.Line(xlineGeometry, xlineMaterial);
 
@@ -37,7 +37,7 @@ angular.module('webunleashedExampleApp')
 	    	});
 
 	    	var zlineGeometry = new THREE.Geometry();
-		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
+		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, - originLength));
 		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, originLength));
 		    var zLine = new THREE.Line(zlineGeometry, zlineMaterial);
 
@@ -158,7 +158,7 @@ angular.module('webunleashedExampleApp')
 
 				}else{
 
-					geometry.vertices.push(
+/*					geometry.vertices.push(
 						new THREE.Vector3( - size, y, 0 ), 
 						new THREE.Vector3( 0, y, 0),
 						new THREE.Vector3( originLength, y, 0 ), 
@@ -178,7 +178,7 @@ angular.module('webunleashedExampleApp')
 
 					var color = i === 0 ? this.color1 : this.color2;
 
-					geometry.colors.push( color, color, color, color );
+					geometry.colors.push( color, color, color, color );*/
 				}
 
 				j -= step;

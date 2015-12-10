@@ -12,7 +12,7 @@ angular.module('webunleashedExampleApp')
 			link: function postLink(scope, element, attrs) {
 				
 				var camera, controls, scene, renderer;
-				var originLength = 33;
+				var originLength = 1000;
 				angular.zoomLevel = -1;
 				var scale = 1; //1:1'
 
