@@ -121,8 +121,82 @@ angular.module('webunleashedExampleApp')
 			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
 			var y = 0;
 			this.color1 = new THREE.Color( 0x888888 );
-			this.color3 = new THREE.Color( 0x888888 );
-			this.color2 = new THREE.Color( 0xB3B3B3);
+			this.color2 = new THREE.Color( 0x888888 );
+			this.color3 = new THREE.Color( 0xB3B3B3);
+
+			var count = 0;
+			var j = 0;
+			//for ( var i = - size; i <= size; i += step ) {
+			for ( var i = 0; i <= size; i += step ) {
+				
+
+				var onAxis = i === 0 || size ===0;
+
+				if(!onAxis) {
+					
+					geometry.vertices.push(
+						new THREE.Vector3( - size, y, i ), 
+						new THREE.Vector3( size, y, i ),
+						new THREE.Vector3( i, y, - size ), 
+						new THREE.Vector3( i, y, size )
+					);
+
+					var color = i === 0 ? this.color1 : this.color2;
+
+					geometry.colors.push( color, color, color, color );
+
+					geometry.vertices.push(
+						new THREE.Vector3( - size, y, j ), 
+						new THREE.Vector3( size, y, j ),
+						new THREE.Vector3( j, y, - size ), 
+						new THREE.Vector3( j, y, size )
+					);
+
+					var color = j === 0 ? this.color1 : this.color2;
+
+					geometry.colors.push( color, color, color, color );
+
+				}else{
+
+					geometry.vertices.push(
+						new THREE.Vector3( - size, y, 0 ), 
+						new THREE.Vector3( 0, y, 0),
+						new THREE.Vector3( originLength, y, 0 ), 
+						new THREE.Vector3( size, y, 0 )
+					);
+
+					var color = i === 0 ? this.color1 : this.color2;
+
+					geometry.colors.push( color, color, color, color );
+
+					geometry.vertices.push(
+						new THREE.Vector3( 0, y, - size ), 
+						new THREE.Vector3( 0, y, 0),
+						new THREE.Vector3( 0, y, originLength ), 
+						new THREE.Vector3( 0, y, size )
+					);
+
+					var color = i === 0 ? this.color1 : this.color2;
+
+					geometry.colors.push( color, color, color, color );
+				}
+
+				j -= step;
+			}
+
+			 var lineSegments = new THREE.LineSegments(geometry, material );
+			 return lineSegments;
+
+		}
+
+		var drawGridOrig = function ( size, step, originLength ) {
+
+			var geometry = new THREE.Geometry();
+			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
+			var y = 0;
+			this.color1 = new THREE.Color( 0x888888 );
+			this.color2 = new THREE.Color( 0x888888 );
+			this.color3 = new THREE.Color( 0xB3B3B3);
 
 			var count = 0;
 			for ( var i = - size; i <= size; i += step ) {
