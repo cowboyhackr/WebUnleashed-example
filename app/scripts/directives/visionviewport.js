@@ -13,7 +13,8 @@ angular.module('webunleashedExampleApp')
 				
 				var camera, controls, scene, renderer;
 				var originLength = 33;
-				angular.zoomLevel = 10;
+				angular.zoomLevel = -1;
+				var scale = 1; //1:1'
 
 				init();
 				animate();
@@ -28,6 +29,7 @@ angular.module('webunleashedExampleApp')
 					renderer.setClearColor( scene.fog.color );
 					renderer.setPixelRatio( window.devicePixelRatio );
 					renderer.setSize( window.innerWidth, window.innerHeight );
+
 
 					document.body.appendChild(renderer.domElement);
 
@@ -52,7 +54,7 @@ angular.module('webunleashedExampleApp')
 					var origin = worldframework.drawOriginPoint(originLength);
 					scene.add(origin);
 
-					var grid = worldframework.drawGrid(1000, 120, originLength);
+					var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
 					grid.name = "grid";
 					scene.add(grid);
 
@@ -71,14 +73,15 @@ angular.module('webunleashedExampleApp')
 
 					// Reference shape
 
-					var geometry = new THREE.BoxGeometry( 240, 240,240 );
+					var geometry = new THREE.BoxGeometry( 10*scale, 10*scale,10*scale );
 				    var material = new THREE.MeshLambertMaterial( { color: 0xFF0000 } );
 				    var mesh = new THREE.Mesh( geometry, material );
 					var cube = new THREE.Object3D();
 					cube.add(mesh);
-					cube.position.y = 120;
-					cube.position.x = 120;
-					cube.position.z = 120;
+					var position = (10*scale)/2
+					cube.position.y = position;
+					cube.position.x = position;
+					cube.position.z = position;
 				    scene.add( cube );
 
 					//
@@ -108,8 +111,8 @@ angular.module('webunleashedExampleApp')
 
 				function render() {
 
-					console.log(camera.position.y);
-					var grid = worldframework.drawGridToZoomLevel(camera.position.y, originLength);
+					//console.log(camera.position.y);
+					var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
 					if(grid !== undefined){
 						var gridObject = scene.getObjectByName("grid");
 						scene.remove(gridObject);

@@ -4,8 +4,6 @@
 angular.module('webunleashedExampleApp')
 	.factory('worldframework', function () {
 
-
-
 		var drawOriginPoint = function(originLength){
 
 			var green = 0x00FF00;
@@ -52,7 +50,7 @@ angular.module('webunleashedExampleApp')
 
 		}
 
-		var drawGridToZoomLevel = function(height, originLength){
+		var drawGridToZoomLevel = function(height, scale, originLength){
 /*1 3js unit equals ?
 			STEP    Grid Ratio     inches   meters   camera.position.y @50 @1024   3js (x5) units    (x.5)
 			10  	10' x 10'       120   	  3			   > 50          1024       600               60
@@ -68,8 +66,7 @@ angular.module('webunleashedExampleApp')
 			.005 	1/16" x 1/16"    .0625  				>  .049       1           .3125
 */
 			var beginZoomLevel = angular.zoomLevel;
-			var scale = 1;
-			console.log(angular.zoomLevel);
+
 			var step;
 			if(height >= 120*scale && angular.zoomLevel !== 10){
 				step = 120*scale;
@@ -106,57 +103,16 @@ angular.module('webunleashedExampleApp')
 				angular.zoomLevel = 0;
 			}
 
-/*			var maxRef = 600;
-			var beginZoomLevel = angular.zoomLevel;
-
-			console.log(angular.zoomLevel);
-			var step;
-			if(height >= maxRef && angular.zoomLevel !== 10){
-				step = maxRef;
-				angular.zoomLevel = 10;
-			}else if(height <= maxRef && height > maxRef/2 && angular.zoomLevel !== 9){
-				step = maxRef/2;
-				angular.zoomLevel  = 9;
-			}else if(height <= maxRef/2 && height > maxRef/4 && angular.zoomLevel !== 8){
-				step = maxRef/4;
-				angular.zoomLevel  = 8;
-			}else if(height <= maxRef/4 && height > maxRef/8 && angular.zoomLevel !== 7){
-				step = maxRef/8;
-				angular.zoomLevel = 7;
-			}else if(height <= maxRef/8 && height > maxRef/16 && angular.zoomLevel !== 6){
-				step = maxRef/16;
-				angular.zoomLevel = 6;
-			}else if(height <= maxRef/16 && height > maxRef/32 && angular.zoomLevel !== 5){
-				step = maxRef/32;
-				angular.zoomLevel = 5;
-			}else if(height <= maxRef/32 && height > maxRef/64 && angular.zoomLevel !== 4){
-				step = maxRef/64;
-				angular.zoomLevel = 4;
-			}else if(height <= maxRef/64 && height > maxRef/128 && angular.zoomLevel !== 3){
-				step = maxRef/128;
-				angular.zoomLevel = 3;
-			}else if(height <= maxRef/128 && height > maxRef/256 && angular.zoomLevel !== 2){
-				step = maxRef/256;
-				angular.zoomLevel = 2;
-			}else if(height <= maxRef/256 && height > maxRef/512 && angular.zoomLevel !== 1){
-				step = maxRef/512;
-				angular.zoomLevel = 1;
-			}else if(height <= maxRef/512 && height > maxRef/1024 && angular.zoomLevel !== 0){
-				step = maxRef/1024;
-				angular.zoomLevel = 0;
-			}*/
-
-
-			
 			if(beginZoomLevel != angular.zoomLevel){
 				var grid = this.drawGrid(1000, step, originLength);
 				grid.name = "grid";
+				console.log(angular.zoomLevel)
+				console.log("height: " + height);
 				console.log("step " + step);
 				return grid;
 			}else{
 				return undefined;
 			}
-
 		}
 
 		var drawGrid = function ( size, step, originLength ) {
@@ -165,10 +121,12 @@ angular.module('webunleashedExampleApp')
 			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
 			var y = 0;
 			this.color1 = new THREE.Color( 0x888888 );
-			this.color2 = new THREE.Color( 0x888888 );
+			this.color3 = new THREE.Color( 0x888888 );
+			this.color2 = new THREE.Color( 0xB3B3B3);
 
+			var count = 0;
 			for ( var i = - size; i <= size; i += step ) {
-
+				//console.log(i);
 				var onAxis = i === 0 || size ===0;
 
 				if(!onAxis) {
@@ -181,7 +139,10 @@ angular.module('webunleashedExampleApp')
 					);
 
 					var color = i === 0 ? this.color1 : this.color2;
-
+/*					count++;
+					if(count % 3 === 0){
+						color = this.color3;
+					}*/
 					geometry.colors.push( color, color, color, color );
 
 				}else{
