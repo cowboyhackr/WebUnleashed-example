@@ -120,41 +120,18 @@ angular.module('webunleashedExampleApp')
 			var geometry = new THREE.Geometry();
 			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
 			var y = 0;
-			this.color1 = new THREE.Color( 0x888888 );
-			this.color2 = new THREE.Color( 0x888888 );
-			this.color3 = new THREE.Color( 0xB3B3B3);
 
 			var count = 0;
 			var j = 0;
-			//for ( var i = - size; i <= size; i += step ) {
 			for ( var i = 0; i <= size; i += step ) {
 				
-
 				var onAxis = i === 0 || size ===0;
 
 				if(!onAxis) {
-					
-					geometry.vertices.push(
-						new THREE.Vector3( - size, y, i ), 
-						new THREE.Vector3( size, y, i ),
-						new THREE.Vector3( i, y, - size ), 
-						new THREE.Vector3( i, y, size )
-					);
 
-					var color = i === 0 ? this.color1 : this.color2;
+					addGridVertices(geometry, size, y, i);
 
-					geometry.colors.push( color, color, color, color );
-
-					geometry.vertices.push(
-						new THREE.Vector3( - size, y, j ), 
-						new THREE.Vector3( size, y, j ),
-						new THREE.Vector3( j, y, - size ), 
-						new THREE.Vector3( j, y, size )
-					);
-
-					var color = j === 0 ? this.color1 : this.color2;
-
-					geometry.colors.push( color, color, color, color );
+					addGridVertices(geometry, size, y, j);
 
 				}else{
 
@@ -189,64 +166,21 @@ angular.module('webunleashedExampleApp')
 
 		}
 
-		var drawGridOrig = function ( size, step, originLength ) {
+		var addGridVertices = function(geometry, size,y,iterator){
 
-			var geometry = new THREE.Geometry();
-			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
-			var y = 0;
-			this.color1 = new THREE.Color( 0x888888 );
-			this.color2 = new THREE.Color( 0x888888 );
-			this.color3 = new THREE.Color( 0xB3B3B3);
+			var color1 = new THREE.Color( 0x888888 );
+			var color2 = new THREE.Color( 0x888888 );
+			var color3 = new THREE.Color( 0xB3B3B3);
 
-			var count = 0;
-			for ( var i = - size; i <= size; i += step ) {
-				//console.log(i);
-				var onAxis = i === 0 || size ===0;
+			geometry.vertices.push(
+				    new THREE.Vector3( - size, y, iterator ), 
+					new THREE.Vector3( size, y, iterator ),
+					new THREE.Vector3( iterator, y, - size ), 
+					new THREE.Vector3( iterator, y, size ));
 
-				if(!onAxis) {
-					
-					geometry.vertices.push(
-						new THREE.Vector3( - size, y, i ), 
-						new THREE.Vector3( size, y, i ),
-						new THREE.Vector3( i, y, - size ), 
-						new THREE.Vector3( i, y, size )
-					);
+			var color = iterator === 0 ? color1 : color2;
 
-					var color = i === 0 ? this.color1 : this.color2;
-/*					count++;
-					if(count % 3 === 0){
-						color = this.color3;
-					}*/
-					geometry.colors.push( color, color, color, color );
-
-				}else{
-
-					geometry.vertices.push(
-						new THREE.Vector3( - size, y, 0 ), 
-						new THREE.Vector3( 0, y, 0),
-						new THREE.Vector3( originLength, y, 0 ), 
-						new THREE.Vector3( size, y, 0 )
-					);
-
-					var color = i === 0 ? this.color1 : this.color2;
-
-					geometry.colors.push( color, color, color, color );
-
-					geometry.vertices.push(
-						new THREE.Vector3( 0, y, - size ), 
-						new THREE.Vector3( 0, y, 0),
-						new THREE.Vector3( 0, y, originLength ), 
-						new THREE.Vector3( 0, y, size )
-					);
-
-					var color = i === 0 ? this.color1 : this.color2;
-
-					geometry.colors.push( color, color, color, color );
-				}
-			}
-
-			 var lineSegments = new THREE.LineSegments(geometry, material );
-			 return lineSegments;
+			geometry.colors.push( color, color, color, color );
 
 		}
 
