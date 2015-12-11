@@ -124,14 +124,22 @@ angular.module('webunleashedExampleApp')
 			var count = 0;
 			var j = 0;
 			for ( var i = 0; i <= size; i += step ) {
-				
+						
 				var onAxis = i === 0 || size ===0;
 
 				if(!onAxis) {
 
-					addGridVertices(geometry, size, y, i);
+					addGridVertices(geometry, undefined, size, y, i);
 
-					addGridVertices(geometry, size, y, j);
+					var innerStep = step/5;
+					var firstInnerStep = i + innerStep;
+					var lastInnerStep = (i + step) - innerStep;
+					for(var ii = firstInnerStep; ii < lastInnerStep; ii += innerStep){
+
+						addGridVertices(geometry, new THREE.Color( 0xffffff), size, y, ii);
+					}
+
+					addGridVertices(geometry, undefined, size, y, j);
 
 				}else{
 
@@ -166,7 +174,7 @@ angular.module('webunleashedExampleApp')
 
 		}
 
-		var addGridVertices = function(geometry, size,y,iterator){
+		var addGridVertices = function(geometry, customcolor, size,y,iterator){
 
 			var color1 = new THREE.Color( 0x888888 );
 			var color2 = new THREE.Color( 0x888888 );
@@ -180,7 +188,11 @@ angular.module('webunleashedExampleApp')
 
 			var color = iterator === 0 ? color1 : color2;
 
-			geometry.colors.push( color, color, color, color );
+			if(customcolor === undefined	){
+				geometry.colors.push( color, color, color, color );
+			}else{
+				geometry.colors.push( customcolor, customcolor, customcolor, customcolor );
+			}
 
 		}
 
