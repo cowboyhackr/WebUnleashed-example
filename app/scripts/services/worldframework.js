@@ -68,7 +68,7 @@ angular.module('webunleashedExampleApp')
 			var beginZoomLevel = angular.zoomLevel;
 
 			var step;
-			if(height >= 120*scale && angular.zoomLevel !== 10){
+			if (height >= 120*scale && angular.zoomLevel !== 10){
 				step = 120*scale;
 				angular.zoomLevel = 10;
 			}else if(height <= 120*scale && height > 60*scale && angular.zoomLevel !== 9){
@@ -106,9 +106,9 @@ angular.module('webunleashedExampleApp')
 			if(beginZoomLevel != angular.zoomLevel){
 				var grid = this.drawGrid(1000, step, originLength);
 				grid.name = "grid";
-				console.log(angular.zoomLevel)
+/*				console.log(angular.zoomLevel)
 				console.log("height: " + height);
-				console.log("step " + step);
+				console.log("step " + step);*/
 				return grid;
 			}else{
 				return undefined;
@@ -119,6 +119,7 @@ angular.module('webunleashedExampleApp')
 
 			var geometry = new THREE.Geometry();
 			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );
+			var innerStep = step/5;
 			var y = 0;
 
 			var count = 0;
@@ -131,12 +132,26 @@ angular.module('webunleashedExampleApp')
 
 					addGridVertices(geometry, undefined, size, y, i);
 
-					var innerStep = step/5;
 					var firstInnerStep = i + innerStep;
 					var lastInnerStep = (i + step) - innerStep;
-					for(var ii = firstInnerStep; ii < lastInnerStep; ii += innerStep){
 
-						addGridVertices(geometry, new THREE.Color( 0xffffff), size, y, ii);
+					console.log("***** ***** ***** ***** *****");
+					console.log("step: " + step);
+					console.log("i: " + i);
+					console.log("innerstep:  " + innerStep);
+					console.log("firstInnerStep: " + firstInnerStep);
+					
+					for(var ii = firstInnerStep; ii < i + step; ii += innerStep){
+
+						addGridVertices(geometry, new THREE.Color( 0xB3B3B3), size, y, ii);
+						console.log("ii: " + ii);
+					}
+
+					console.log("lastInnerStep: " + lastInnerStep);
+
+					for(var jj = - firstInnerStep; jj < i; jj +- innerStep){
+
+						addGridVertices(geometry, new THREE.Color( 0xff0000), size, y, jj);
 					}
 
 					addGridVertices(geometry, undefined, size, y, j);
