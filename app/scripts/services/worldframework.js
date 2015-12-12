@@ -149,9 +149,24 @@ angular.module('webunleashedExampleApp')
 
 					console.log("lastInnerStep: " + lastInnerStep);
 
-					for(var jj = - firstInnerStep; jj < i; jj +- innerStep){
+					var jfirstInnerStep = j - innerStep;
+					var jlastInnerStep = (j - step) + innerStep;
 
-						addGridVertices(geometry, new THREE.Color( 0xff0000), size, y, jj);
+					console.log("***** ***** ***** ***** *****");
+					console.log("step: " + step);
+					console.log("j: " + j);
+					console.log("innerstep:  " + innerStep);
+					console.log("jfirstInnerStep: " + jfirstInnerStep);
+
+						var endCondition = j - step;
+						console.log("endcondition: " + endCondition);
+						//console.log(jfirstInnerStep -= innerStep);
+					//for(var jj = firstInnerStep; jj < i + step; jj += innerStep){
+						                               
+					for(var jj = jfirstInnerStep; jj > j - step; jj -= innerStep){
+
+						addGridVertices(geometry, new THREE.Color(0xB3B3B3), size, y, jj);
+						console.log("jj: " + jj);
 					}
 
 					addGridVertices(geometry, undefined, size, y, j);
