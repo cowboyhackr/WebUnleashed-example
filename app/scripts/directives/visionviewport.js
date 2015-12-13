@@ -22,7 +22,7 @@ angular.module('webunleashedExampleApp')
 				function init() {
 
 					scene = new THREE.Scene();
-					scene.fog = new THREE.Fog( 0xcccccc, 999, 1000 );
+					scene.fog = new THREE.Fog( 0xcccccc, 0.00025, 1000 );
 			
 
 					renderer = new THREE.WebGLRenderer();
