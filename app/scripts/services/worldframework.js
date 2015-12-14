@@ -93,9 +93,9 @@ angular.module('webunleashedExampleApp')
 			if(beginZoomLevel != angular.zoomLevel){
 				var grid = this.drawGrid(1000, step, originLength);
 				grid.name = "grid";
-/*				console.log(angular.zoomLevel)
+				console.log(angular.zoomLevel)
 				console.log("height: " + height);
-				console.log("step " + step);*/
+				console.log("step " + step);
 				return grid;
 			}else{
 				return undefined;
@@ -119,30 +119,37 @@ angular.module('webunleashedExampleApp')
 					addGridVertices(geometry, undefined, size, y, i);
 				}
 
-				var firstInnerStep = i + innerStep;
-				var lastInnerStep = (i + step) - innerStep;
+				if((i + step) < size){
+					var firstInnerStep = i + innerStep;
+					var lastInnerStep = (i + step) - innerStep;
 
-				for(var ii = firstInnerStep; ii < i + step; ii += innerStep){
-					addGridVertices(geometry, new THREE.Color( 0xB3B3B3), size, y, ii);
-				}
-
-				var jfirstInnerStep = j - innerStep;
-				var jlastInnerStep = (j - step) + innerStep;
-
-					var endCondition = j - step;
-					                               
-				for(var jj = jfirstInnerStep; jj > j - step; jj -= innerStep){
-					addGridVertices(geometry, new THREE.Color(0xB3B3B3), size, y, jj);
+					for(var ii = firstInnerStep; ii < i + step; ii += innerStep){
+						addGridVertices(geometry, new THREE.Color( 0xB3B3B3), size, y, ii);
+					}
 				}
 
 				if(!onAxis){
 					addGridVertices(geometry, undefined, size, y, j);
 				}
 
+				if(-(j - step) < size){
+					
+					var jfirstInnerStep = j - innerStep;
+					var jlastInnerStep = (j - step) + innerStep;
+
+					var endCondition = j - step;
+					                               
+					for(var jj = jfirstInnerStep; jj > j - step; jj -= innerStep){
+						addGridVertices(geometry, new THREE.Color(0xB3B3B3), size, y, jj);
+					}
+				}
+
+
+
 				j -= step;
 			}
 
-			 var lineSegments = new THREE.LineSegments(geometry, material );
+			 var lineSegments = new THREE.LineSegments(geometry, material);
 			 return lineSegments;
 		}
 
@@ -160,66 +167,15 @@ angular.module('webunleashedExampleApp')
 
 			var color = iterator === 0 ? color1 : color2;
 
-			if(customcolor === undefined	){
+			if(customcolor === undefined){
 				geometry.colors.push( color, color, color, color );
 			}else{
 				geometry.colors.push( customcolor, customcolor, customcolor, customcolor );
 			}
 		}
 
-		var createGable = function(xIn,yIn){
-
-			var x, y, z;
-		    x = xIn;
-		    y = yIn;
-		    z = 0;
-
-		    var lineMaterial = new THREE.LineBasicMaterial({
-		    	color: 0xffffff,
-		    	linewidth:1000
-	    	});
-
-		    var complexTwoDWireFrameGeometry = new THREE.Geometry();
-		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x - 20, y - 10, z));
-		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x -20, y, z));
-		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x, y, z));
-		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x, y - 10, z));
-		    complexTwoDWireFrameGeometry.vertices.push(new THREE.Vector3(x-20, y - 10, z));
-		    complexTwoDWireFrameGeometry.faces.push(new THREE.Face3(0,1,2));
-		    var complexTwoDWireFrameLine = new THREE.Line(complexTwoDWireFrameGeometry, lineMaterial);
-
-	/*	    scene.add(complexTwoDWireFrameLine);
-		    objects.push(complexTwoDWireFrameLine);*/
-
-		    var widthGableGeometry = new THREE.Geometry();
-		    widthGableGeometry.vertices.push(new THREE.Vector3(x, y + 5, z));
-		    widthGableGeometry.vertices.push(new THREE.Vector3(x -20, y + 5, z));
-		    widthGableGeometry.faces.push(new THREE.Face3(0,1,2));
-		    var widthGableFrameLine = new THREE.Line(widthGableGeometry, lineMaterial);
-	/*	    scene.add(widthGableFrameLine);
-		    objects.push(widthGableFrameLine);*/
-
-		    var heighthGableGeometry = new THREE.Geometry();
-		    heighthGableGeometry.vertices.push(new THREE.Vector3(x-25, y - 10, z));
-		    heighthGableGeometry.vertices.push(new THREE.Vector3(x-25, y , z));
-		    var heighthGableLine = new THREE.Line(heighthGableGeometry, lineMaterial);
-	/*	    scene.add(heighthGableGeometry);
-		    objects.push(heighthGableGeometry);*/
-			
-			var gableObject3d = new THREE.Object3D();
-			gableObject3d.add(complexTwoDWireFrameLine);
-			gableObject3d.add(widthGableFrameLine);
-			gableObject3d.add(heighthGableLine);
-
-			    return gableObject3d;
-
-		}
-
-
-
 		// Public API here
 		return {
-			createGable : createGable,
 			drawOriginPoint : drawOriginPoint,
 			drawGrid : drawGrid,
 			drawGridToZoomLevel : drawGridToZoomLevel

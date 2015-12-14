@@ -28,7 +28,7 @@ angular.module('webunleashedExampleApp')
 				function init() {
 
 					scene = new THREE.Scene();
-					scene.fog = new THREE.Fog( 0xcccccc, 0.00025, 1000 );
+					scene.fog = new THREE.Fog( 0xcccccc, 1, 1000 );
 			
 
 					renderer = new THREE.WebGLRenderer();
@@ -46,8 +46,8 @@ angular.module('webunleashedExampleApp')
 
 
 					controls = new THREE.OrbitControls( camera, renderer.domElement );
-					controls.minDistance = -100;
-					controls.minZoom = -100;
+
+
 					//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
 					controls.enableDamping = true;
 					controls.dampingFactor = 0.75;
