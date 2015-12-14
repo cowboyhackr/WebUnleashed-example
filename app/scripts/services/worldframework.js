@@ -51,20 +51,7 @@ angular.module('webunleashedExampleApp')
 		}
 
 		var drawGridToZoomLevel = function(height, scale, originLength){
-/*1 3js unit equals ?
-			STEP    Grid Ratio     inches   meters   camera.position.y @50 @1024   3js (x5) units    (x.5)
-			10  	10' x 10'       120   	  3			   > 50          1024       600               60
-			5   	5' x 5'			 60   	  1.5			> 25          512       300               30
-			2   	2' x 2'          24   	  .75			> 12.5        256       120               15
-			1   	1' x 1'			 12   	  			> 6.25        128            60                5
-			.5  	6" x 6"           6   					> 3.125       64         30                
-			.25 	3" x 3"			  3	  					> 1.56        32         15
-			.083 	1" x 1"           1	  					> .78         16          5
-			.041  	1/2" x 1/2"      .5   					> .39         8           2.5
-			.02  	1/4" x 1/4"      .25    				> .195        4           1.25
-			.01  	1/8" x 1/8"      .125  					> .098        2           .625
-			.005 	1/16" x 1/16"    .0625  				>  .049       1           .3125
-*/
+
 			var beginZoomLevel = angular.zoomLevel;
 
 			var step;
@@ -128,84 +115,35 @@ angular.module('webunleashedExampleApp')
 						
 				var onAxis = i === 0 || size ===0;
 
-				//if(!onAxis) {
+				if(!onAxis){
+					addGridVertices(geometry, undefined, size, y, i);
+				}
 
-					if(!onAxis){
-							addGridVertices(geometry, undefined, size, y, i);
-					}
+				var firstInnerStep = i + innerStep;
+				var lastInnerStep = (i + step) - innerStep;
 
-					var firstInnerStep = i + innerStep;
-					var lastInnerStep = (i + step) - innerStep;
+				for(var ii = firstInnerStep; ii < i + step; ii += innerStep){
+					addGridVertices(geometry, new THREE.Color( 0xB3B3B3), size, y, ii);
+				}
 
-					console.log("***** ***** ***** ***** *****");
-					console.log("step: " + step);
-					console.log("i: " + i);
-					console.log("innerstep:  " + innerStep);
-					console.log("firstInnerStep: " + firstInnerStep);
-					
-					for(var ii = firstInnerStep; ii < i + step; ii += innerStep){
+				var jfirstInnerStep = j - innerStep;
+				var jlastInnerStep = (j - step) + innerStep;
 
-						addGridVertices(geometry, new THREE.Color( 0xB3B3B3), size, y, ii);
-						console.log("ii: " + ii);
-					}
+					var endCondition = j - step;
+					                               
+				for(var jj = jfirstInnerStep; jj > j - step; jj -= innerStep){
+					addGridVertices(geometry, new THREE.Color(0xB3B3B3), size, y, jj);
+				}
 
-					console.log("lastInnerStep: " + lastInnerStep);
-
-					var jfirstInnerStep = j - innerStep;
-					var jlastInnerStep = (j - step) + innerStep;
-
-					console.log("***** ***** ***** ***** *****");
-					console.log("step: " + step);
-					console.log("j: " + j);
-					console.log("innerstep:  " + innerStep);
-					console.log("jfirstInnerStep: " + jfirstInnerStep);
-
-						var endCondition = j - step;
-						console.log("endcondition: " + endCondition);
-						//console.log(jfirstInnerStep -= innerStep);
-					//for(var jj = firstInnerStep; jj < i + step; jj += innerStep){
-						                               
-					for(var jj = jfirstInnerStep; jj > j - step; jj -= innerStep){
-
-						addGridVertices(geometry, new THREE.Color(0xB3B3B3), size, y, jj);
-						console.log("jj: " + jj);
-					}
-
-					if(!onAxis){
-						addGridVertices(geometry, undefined, size, y, j);
-					}
-
-				//}else{
-
-/*					geometry.vertices.push(
-						new THREE.Vector3( - size, y, 0 ), 
-						new THREE.Vector3( 0, y, 0),
-						new THREE.Vector3( originLength, y, 0 ), 
-						new THREE.Vector3( size, y, 0 )
-					);
-
-					var color = i === 0 ? this.color1 : this.color2;
-
-					geometry.colors.push( color, color, color, color );
-
-					geometry.vertices.push(
-						new THREE.Vector3( 0, y, - size ), 
-						new THREE.Vector3( 0, y, 0),
-						new THREE.Vector3( 0, y, originLength ), 
-						new THREE.Vector3( 0, y, size )
-					);
-
-					var color = i === 0 ? this.color1 : this.color2;
-
-					geometry.colors.push( color, color, color, color );*/
-				//}
+				if(!onAxis){
+					addGridVertices(geometry, undefined, size, y, j);
+				}
 
 				j -= step;
 			}
 
 			 var lineSegments = new THREE.LineSegments(geometry, material );
 			 return lineSegments;
-
 		}
 
 		var addGridVertices = function(geometry, customcolor, size,y,iterator){
@@ -227,9 +165,7 @@ angular.module('webunleashedExampleApp')
 			}else{
 				geometry.colors.push( customcolor, customcolor, customcolor, customcolor );
 			}
-
 		}
-
 
 		var createGable = function(xIn,yIn){
 

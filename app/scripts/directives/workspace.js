@@ -31,6 +31,13 @@ angular.module('webunleashedExampleApp')
 		//document.addEventListener('mousemove', this.onDocumentMouseMove, false);
 		//document.addEventListener('mouseup', this.onDocumentMouseUp, false);
 
+		var rendererStats  = new THREEx.RendererStats();
+		rendererStats.domElement.style.position   = 'absolute'
+		rendererStats.domElement.style.left  = '0px'
+		rendererStats.domElement.style.bottom    = '0px'
+		document.body.appendChild( rendererStats.domElement );
+
+
 		var controls;
 	    // Prepare webgl renderer
 	    var renderer = new THREE.WebGLRenderer({ antialias:true });
@@ -94,6 +101,7 @@ angular.module('webunleashedExampleApp')
 
 		function render(){
 			renderer.render(scene, camera);
+			rendererStats.update(renderer);
 		}
 
 /*		function onDocumentMouseDown (event) {

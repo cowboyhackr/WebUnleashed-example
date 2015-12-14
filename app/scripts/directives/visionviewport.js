@@ -16,6 +16,12 @@ angular.module('webunleashedExampleApp')
 				angular.zoomLevel = -1;
 				var scale = 1; //1:1'
 
+									var rendererStats  = new THREEx.RendererStats();
+						rendererStats.domElement.style.position   = 'absolute'
+						rendererStats.domElement.style.left  = '0px'
+						rendererStats.domElement.style.bottom    = '0px'
+						document.body.appendChild( rendererStats.domElement );
+
 				init();
 				animate();
 
@@ -29,6 +35,8 @@ angular.module('webunleashedExampleApp')
 					renderer.setClearColor( scene.fog.color );
 					renderer.setPixelRatio( window.devicePixelRatio );
 					renderer.setSize( window.innerWidth, window.innerHeight );
+
+
 
 
 					document.body.appendChild(renderer.domElement);
@@ -116,10 +124,12 @@ angular.module('webunleashedExampleApp')
 					if(grid !== undefined){
 						var gridObject = scene.getObjectByName("grid");
 						scene.remove(gridObject);
+						gridObject.geometry.dispose();
 						scene.add(grid);
 					}
 
 					renderer.render( scene, camera );
+					rendererStats.update(renderer);
 				}
 			}
 		};
