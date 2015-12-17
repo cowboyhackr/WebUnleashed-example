@@ -16,11 +16,11 @@ angular.module('webunleashedExampleApp')
 				angular.zoomLevel = -1;
 				var scale = 1; //1:1'
 
-									var rendererStats  = new THREEx.RendererStats();
-						rendererStats.domElement.style.position   = 'absolute'
-						rendererStats.domElement.style.left  = '0px'
-						rendererStats.domElement.style.bottom    = '0px'
-						document.body.appendChild( rendererStats.domElement );
+				var rendererStats  = new THREEx.RendererStats();
+				rendererStats.domElement.style.position   = 'absolute'
+				rendererStats.domElement.style.left  = '0px'
+				rendererStats.domElement.style.bottom    = '0px'
+				document.body.appendChild( rendererStats.domElement );
 
 				init();
 				animate();
@@ -28,25 +28,19 @@ angular.module('webunleashedExampleApp')
 				function init() {
 
 					scene = new THREE.Scene();
-					scene.fog = new THREE.Fog( 0xcccccc, 1, 1000 );
+					scene.fog = new THREE.FogExp2( 0xcccccc,  0.00025 );
 			
-
 					renderer = new THREE.WebGLRenderer();
 					renderer.setClearColor( scene.fog.color );
 					renderer.setPixelRatio( window.devicePixelRatio );
 					renderer.setSize( window.innerWidth, window.innerHeight );
-
-
-
 
 					document.body.appendChild(renderer.domElement);
 
 					camera = new THREE.PerspectiveCamera( 60, window.innerWidth / window.innerHeight, 1, 1000 );
 					//camera.position.set( 500, 0, 0 );
 
-
 					controls = new THREE.OrbitControls( camera, renderer.domElement );
-
 
 					//controls.addEventListener( 'change', render ); // add this only if there is no animation loop (requestAnimationFrame)
 					controls.enableDamping = true;
