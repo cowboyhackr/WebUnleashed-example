@@ -7,13 +7,14 @@ angular.module('coreapp')
         var camera, controls, scene, renderer;
         var originLength = 1000;
         angular.zoomLevel = -1;
-        var scale = 1; //1:1'
+        var gridOn = true;
+        var scale = 2; //1:1'
 
         var rendererStats = new THREEx.RendererStats();
         rendererStats.domElement.style.position = 'absolute'
         rendererStats.domElement.style.left = '0px'
         rendererStats.domElement.style.bottom = '0px'
-            //document.body.appendChild( rendererStats.domElement );
+        document.body.appendChild( rendererStats.domElement );
 
         /**
          * Initialize the 3D scene.
@@ -31,7 +32,7 @@ angular.module('coreapp')
 
             document.body.appendChild(renderer.domElement);
 
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, 1, 1000);
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, .01, 1000);
             //camera.position.set( 500, 0, 0 );
 
             controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -40,8 +41,9 @@ angular.module('coreapp')
             controls.enableDamping = true;
             controls.dampingFactor = 0.75;
             controls.enableZoom = true;
+            //controls.target.set(50,50,50);
 
-            camera.position.set(1000, 1000, 1000);
+            camera.position.set(200, 200, 200);
             //camera.up = new THREE.Vector3(1,1,1);
             camera.lookAt(new THREE.Vector3(0, 0, 0));
 
@@ -114,26 +116,27 @@ angular.module('coreapp')
          */
         function render() {
 
-            //console.log(camera.position.y);
-            var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
-            if (grid !== undefined) {
+            if (gridOn) {
+                var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
+                if (grid !== undefined) {
 
-            	removeGrid();
-                scene.add(grid);
+                    removeGrid();
+                    scene.add(grid);
 
+                }
             }
 
             renderer.render(scene, camera);
             rendererStats.update(renderer);
         }
 
-        function removeGrid(){
-               
-                var gridObject =scene.getObjectByName("grid")
-                scene.remove(gridObject);
-                if(gridObject.geometry !== undefined){
-                	gridObject.geometry.dispose();
-            	}
+        function removeGrid() {
+
+            var gridObject = scene.getObjectByName("grid")
+            scene.remove(gridObject);
+            if (gridObject.geometry !== undefined) {
+                gridObject.geometry.dispose();
+            }
         }
 
         /**
@@ -159,22 +162,19 @@ angular.module('coreapp')
         function toggle(toggleType) {
             switch (toggleType) {
                 case "showgrid":
-	 				var currentGrid = scene.getObjectByName("grid");
-	                if (currentGrid !== undefined) {
-	                    removeGrid();
-	                }else{
-	                	angular.zoomLevel = -1; // refactor this hack
-	                	var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
-	                	scene.add(grid);
-	                    
-	                }
-	                break;
-/*                case "rotate":
-                    rotateCamera = (rotateCamera) ? false : true;
+                    var currentGrid = scene.getObjectByName("grid");
+                    if (currentGrid !== undefined) {
+                        removeGrid();
+                        gridOn = false;
+                    } else {
+                        angular.zoomLevel = -1; // refactor this hack
+                        var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
+                        scene.add(grid);
+                        gridOn = true;
+
+                    }
                     break;
-                case "wireframes":
-                    Demo.Util.toggleWireframes(demo.collisions);
-                    break;*/
+
                 default:
                     $log.error('Undefined Toggle: no toggle param set');
                     break;

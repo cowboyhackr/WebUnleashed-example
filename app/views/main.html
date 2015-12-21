@@ -1,7 +1,10 @@
 
 <button ng-click="toggleShowGrid()">
+
 <span>Toggle Grid</span>
 </button>
+
+<label>Show Grid: <input type="checkbox" ng-model="checked" ng-init="checked=true" ng-change="toggleShowGrid()"></label>
 
 <!-- <dynamicgrid width="800"></dynamicgrid> -->
 

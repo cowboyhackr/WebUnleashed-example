@@ -89,13 +89,18 @@ angular.module('coreapp')
 				step = .0625*scale;
 				angular.zoomLevel = 0;
 			}
+/*			else if(height <= 0){
+				step = 120*scale;
+				angular.zoomLevel = -1;
+			}*/
 
 			if(beginZoomLevel != angular.zoomLevel){
-				var grid = this.drawGrid(1000, step, originLength);
+				var grid = this.drawGrid(step * 100, step, originLength);
 				grid.name = "grid";
-				console.log(angular.zoomLevel)
+				console.log(step * 10);
+/*				console.log(angular.zoomLevel)
 				console.log("height: " + height);
-				console.log("step " + step);
+				console.log("step " + step);*/
 				return grid;
 			}else{
 				return undefined;
