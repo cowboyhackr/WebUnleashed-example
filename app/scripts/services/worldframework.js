@@ -178,4 +178,6 @@ angular.module('coreapp')
 			drawGrid : drawGrid,
 			drawGridToZoomLevel : drawGridToZoomLevel
 		};
+
+
 	});

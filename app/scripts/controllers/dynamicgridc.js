@@ -4,24 +4,22 @@ angular.module('coreapp')
   .controller('dynamicgridc', function ($scope, scenefactory) {
 
 
+   var params = {
+            canvasId: canvasId
+          };
+scenefactory.init(params);
   var canvasId = "factory-canvas";
 
   $scope.startGame = function() {
 
-    var height = $('#ray-intersection').height(),
-      width = $('#ray-intersection').width();
+/*    $('#factory-canvas').height(800);
+    $('#factory-canvas').width(800);*/
 
-    $('#what').fadeOut();
-    $('#factory-canvas').height(height);
-    $('#factory-canvas').width(width);
-    $('#ray-intersection').fadeIn();
 
 
     // notice the use of 'this'.  this refers to the controller $scope when this function is called
     // in normal JS callbacks you'd reference the values with 'var me = this'.  then reference 'me' in the callback function.
-    var params = {
-            canvasId: canvasId
-          };
+ 
 
     scenefactory.init(params);
 
@@ -45,6 +43,9 @@ angular.module('coreapp')
   ///  a better option.  Needs more research.
   //////////////////////////////////////////////////////////
 
+  $scope.toggleShowGrid = function () {
+    scenefactory.toggle("showgrid");
+  };
 
   $scope.toggleWireframes = function () {
     scenefactory.toggle("wireframes");

@@ -15,8 +15,8 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main'
+        controller: 'dynamicgridc',
+        controllerAs: 'vm'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
