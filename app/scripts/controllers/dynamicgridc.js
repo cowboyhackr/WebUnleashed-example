@@ -3,31 +3,12 @@
 angular.module('coreapp')
   .controller('dynamicgridc', function ($scope, scenefactory) {
 
-
-   var params = {
-            canvasId: canvasId
-          };
-scenefactory.init(params);
-  var canvasId = "factory-canvas";
-
-  $scope.startGame = function() {
-
-/*    $('#factory-canvas').height(800);
-    $('#factory-canvas').width(800);*/
-
-
-
-    // notice the use of 'this'.  this refers to the controller $scope when this function is called
-    // in normal JS callbacks you'd reference the values with 'var me = this'.  then reference 'me' in the callback function.
- 
+     var params = {
+              paramTest: 'scemedata'
+            };
 
     scenefactory.init(params);
 
-    $.event.trigger({
-      type: "nextTurn",
-    });
-
-  };
 
   //////////////////////////////////////////////////////////
   ///
