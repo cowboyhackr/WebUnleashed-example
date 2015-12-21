@@ -3,7 +3,7 @@
 describe('Service: sceneFactory', function () {
 
   // load the service's module
-  beforeEach(module('webunleashedExampleApp'));
+  beforeEach(module('coreapp'));
 
   // instantiate service
   var sceneFactory;

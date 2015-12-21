@@ -3,7 +3,7 @@
 describe('Directive: globe', function () {
 
   // load the directive's module
-  beforeEach(module('webunleashedExampleApp'));
+  beforeEach(module('coreapp'));
 
   var element,
     scope;

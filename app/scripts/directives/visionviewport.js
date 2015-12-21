@@ -1,8 +1,9 @@
 'use strict';
 
-angular.module('webunleashedExampleApp')
+angular.module('coreapp')
 	.directive('dynamicgrid', ['worldframework',function (worldframework) {
 		return {
+			
 			restrict: 'E',
 			scope: {
 				width:"=width", // bindings

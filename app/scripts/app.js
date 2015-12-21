@@ -1,15 +1,8 @@
 'use strict';
 
-/**
- * @ngdoc overview
- * @name webunleashedExampleApp
- * @description
- * # webunleashedExampleApp
- *
- * Main module of the application.
- */
+
 angular
-  .module('webunleashedExampleApp', [
+  .module('coreapp', [
     'ngAnimate',
     'ngCookies',
     'ngMessages',

@@ -1,16 +1,10 @@
 'use strict';
 
-/**
- * @ngdoc function
- * @name webunleashedExampleApp.controller:MainCtrl
- * @description
- * # MainCtrl
- * Controller of the webunleashedExampleApp
- */
-angular.module('webunleashedExampleApp')
+
+angular.module('coreapp')
   .controller('MainCtrl', function () {
     this.awesomeThings = [
-      'WebUnleashed',
+      'coreapp',
       'AngularJS',
       'Three.js'
     ];

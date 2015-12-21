@@ -1,7 +1,7 @@
 'use strict';
 
 
-angular.module('webunleashedExampleApp')
+angular.module('coreapp')
 	.factory('worldframework', function () {
 
 		var drawOriginPoint = function(originLength){
