@@ -125,18 +125,18 @@ angular.module('coreapp')
 					rendererStats.update(renderer);
 				}
 
-  /**
-   * Make a
-   * @param  {[type]} mouse [description]
-   * @return {[type]}       [description]
-   */
-  function makeSelection(mouse) {
-    console.info('selection: ', mouse);
+				  /**
+				   * Make a
+				   * @param  {[type]} mouse [description]
+				   * @return {[type]}       [description]
+				   */
+				  function makeSelection(mouse) {
+				    console.info('selection: ', mouse);
 
-    $.event.trigger({
-      type: "userClick",
-      message: mouse
-    });
+				    $.event.trigger({
+				      type: "userClick",
+				      message: mouse
+				    });
 
   }
 
@@ -148,7 +148,9 @@ angular.module('coreapp')
   function toggle(toggleType) {
     switch(toggleType){
       case "arrows":
-          Demo.Util.toggleArrows(demo.arrows);
+  						var gridObject = scene.getObjectByName("grid");
+				scene.remove(gridObject);
+				gridObject.geometry.dispose();
         break;
       case "rotate":
         rotateCamera = (rotateCamera) ? false : true;

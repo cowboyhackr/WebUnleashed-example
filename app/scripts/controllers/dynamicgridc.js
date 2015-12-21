@@ -47,15 +47,15 @@ angular.module('coreapp')
 
 
   $scope.toggleWireframes = function () {
-    ThreeEnv.toggle("wireframes");
+    scenefactory.toggle("wireframes");
   };
 
   $scope.toggleArrows = function () {
-    ThreeEnv.toggle("arrows");
+    scenefactory.toggle("arrows");
   };
 
   $scope.toggleRotate = function () {
-    ThreeEnv.toggle("rotate");
+    scenefactory.toggle("rotate");
   };
 
 
