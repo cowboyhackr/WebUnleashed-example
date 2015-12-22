@@ -126,10 +126,10 @@ angular.module('coreapp')
             if (beginZoomLevel != worldSettings.zoomLevel) {
                 var grid = this.drawGrid(step * 100, step);
                 grid.name = "grid";
-                console.log(step * 10);
+/*                console.log(step * 10);
                 				console.log("zoom Level " + worldSettings.zoomLevel)
                 				console.log("height: " + height);
-                				console.log("step " + step);
+                				console.log("step " + step);*/
                 return grid;
             } else {
                 return undefined;
