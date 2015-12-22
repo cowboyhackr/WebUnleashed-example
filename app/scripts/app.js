@@ -11,6 +11,11 @@ angular
     'ngSanitize',
     'ngTouch'
   ])
+  .value('worldSettings', {
+    zoomLevel: -1,
+    scale: 1,
+    originLength: 1000
+  })
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
@@ -27,3 +32,6 @@ angular
         redirectTo: '/'
       });
   });
+
+  
+

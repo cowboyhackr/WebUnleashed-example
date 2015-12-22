@@ -2,9 +2,9 @@
 
 
 angular.module('coreapp')
-	.factory('worldframework', function () {
+	.factory('worldframework', function (worldSettings) {
 
-		var drawOriginPoint = function(originLength){
+		var drawOriginPoint = function(){
 
 			var green = 0x00FF00;
 			var blue = 0x0000FF;
@@ -15,8 +15,8 @@ angular.module('coreapp')
 	    	});
 
 	    	var xlineGeometry = new THREE.Geometry();
-		    xlineGeometry.vertices.push(new THREE.Vector3(- originLength, 0, 0));
-		    xlineGeometry.vertices.push(new THREE.Vector3(originLength, 0, 0));
+		    xlineGeometry.vertices.push(new THREE.Vector3(- worldSettings.originLength, 0, 0));
+		    xlineGeometry.vertices.push(new THREE.Vector3(worldSettings.originLength, 0, 0));
 		    var xLine = new THREE.Line(xlineGeometry, xlineMaterial);
 
 
@@ -27,7 +27,7 @@ angular.module('coreapp')
 
 	    	var ylineGeometry = new THREE.Geometry();
 		    ylineGeometry.vertices.push(new THREE.Vector3(0, 0, 0));
-		    ylineGeometry.vertices.push(new THREE.Vector3(0, originLength, 0));
+		    ylineGeometry.vertices.push(new THREE.Vector3(0, worldSettings.originLength, 0));
 		    var yLine = new THREE.Line(ylineGeometry, ylineMaterial);
 		    
 
@@ -37,8 +37,8 @@ angular.module('coreapp')
 	    	});
 
 	    	var zlineGeometry = new THREE.Geometry();
-		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, - originLength));
-		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, originLength));
+		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, - worldSettings.originLength));
+		    zlineGeometry.vertices.push(new THREE.Vector3(0, 0, worldSettings.originLength));
 		    var zLine = new THREE.Line(zlineGeometry, zlineMaterial);
 
 		    var originObject3d = new THREE.Object3D();
@@ -50,55 +50,55 @@ angular.module('coreapp')
 
 		}
 
-		var drawGridToZoomLevel = function(height, scale, originLength){
+		var drawGridToZoomLevel = function(height, scale){
 
-			var beginZoomLevel = angular.zoomLevel;
+			var beginZoomLevel = worldSettings.zoomLevel;
 
 			var step;
-			if (height >= 120*scale && angular.zoomLevel !== 10){
+			if (height >= 120*scale && worldSettings.zoomLevel !== 10){
 				step = 120*scale;
-				angular.zoomLevel = 10;
-			}else if(height <= 120*scale && height > 60*scale && angular.zoomLevel !== 9){
+				worldSettings.zoomLevel = 10;
+			}else if(height <= 120*scale && height > 60*scale && worldSettings.zoomLevel !== 9){
 				step = 60*scale;
-				angular.zoomLevel  = 9;
-			}else if(height <= 60*scale && height > 24*scale && angular.zoomLevel !== 8){
+				worldSettings.zoomLevel  = 9;
+			}else if(height <= 60*scale && height > 24*scale && worldSettings.zoomLevel !== 8){
 				step = 24*scale;
-				angular.zoomLevel  = 8;
-			}else if(height <= 24*scale && height > 12*scale && angular.zoomLevel !== 7){
+				worldSettings.zoomLevel  = 8;
+			}else if(height <= 24*scale && height > 12*scale && worldSettings.zoomLevel !== 7){
 				step = 12*scale;
-				angular.zoomLevel = 7;
-			}else if(height <= 12*scale && height > 6*scale && angular.zoomLevel !== 6){
+				worldSettings.zoomLevel = 7;
+			}else if(height <= 12*scale && height > 6*scale && worldSettings.zoomLevel !== 6){
 				step = 6*scale;
-				angular.zoomLevel = 6;
-			}else if(height <= 6*scale && height > 3*scale && angular.zoomLevel !== 5){
+				worldSettings.zoomLevel = 6;
+			}else if(height <= 6*scale && height > 3*scale && worldSettings.zoomLevel !== 5){
 				step = 3*scale;
-				angular.zoomLevel = 5;
-			}else if(height <= 3*scale && height > 1*scale && angular.zoomLevel !== 4){
+				worldSettings.zoomLevel = 5;
+			}else if(height <= 3*scale && height > 1*scale && worldSettings.zoomLevel !== 4){
 				step = 1*scale;
-				angular.zoomLevel = 4;
-			}else if(height <= 1*scale && height > .5*scale && angular.zoomLevel !== 3){
+				worldSettings.zoomLevel = 4;
+			}else if(height <= 1*scale && height > .5*scale && worldSettings.zoomLevel !== 3){
 				step = .5*scale;
-				angular.zoomLevel = 3;
-			}else if(height <= .5*scale && height > .25*scale && angular.zoomLevel !== 2){
+				worldSettings.zoomLevel = 3;
+			}else if(height <= .5*scale && height > .25*scale && worldSettings.zoomLevel !== 2){
 				step = .25*scale;
-				angular.zoomLevel = 2;
-			}else if(height <= .25*scale && height > .125*scale && angular.zoomLevel !== 1){
+				worldSettings.zoomLevel = 2;
+			}else if(height <= .25*scale && height > .125*scale && worldSettings.zoomLevel !== 1){
 				step = .125*scale;
-				angular.zoomLevel = 1;
-			}else if(height <= .125*scale && height > .0625*scale && angular.zoomLevel !== 0){
+				worldSettings.zoomLevel = 1;
+			}else if(height <= .125*scale && height > .0625*scale && worldSettings.zoomLevel !== 0){
 				step = .0625*scale;
-				angular.zoomLevel = 0;
+				worldSettings.zoomLevel = 0;
 			}
 /*			else if(height <= 0){
 				step = 120*scale;
 				angular.zoomLevel = -1;
 			}*/
 
-			if(beginZoomLevel != angular.zoomLevel){
-				var grid = this.drawGrid(step * 100, step, originLength);
+			if(beginZoomLevel != worldSettings.zoomLevel){
+				var grid = this.drawGrid(step * 100, step);
 				grid.name = "grid";
 				console.log(step * 10);
-/*				console.log(angular.zoomLevel)
+/*				console.log(worldSettings.zoomLevel)
 				console.log("height: " + height);
 				console.log("step " + step);*/
 				return grid;
@@ -107,7 +107,7 @@ angular.module('coreapp')
 			}
 		}
 
-		var drawGrid = function ( size, step, originLength ) {
+		var drawGrid = function ( size, step) {
 
 			var geometry = new THREE.Geometry();
 			var material = new THREE.LineBasicMaterial( { vertexColors: THREE.VertexColors } );

@@ -4,7 +4,7 @@ angular.module('coreapp')
   .controller('dynamicgridc', function ($scope, scenefactory) {
 
      var params = {
-              paramTest: 'scemedata'
+              paramTest: 'scenedata'
             };
 
     scenefactory.init(params);

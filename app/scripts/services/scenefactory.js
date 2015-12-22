@@ -1,14 +1,11 @@
 "use strict";
 
 angular.module('coreapp')
-    .factory('scenefactory', function($http, $log, $rootScope, worldframework) {
+    .factory('scenefactory', function($http, $log, $rootScope, worldframework, worldSettings) {
 
 
         var camera, controls, scene, renderer;
-        var originLength = 1000;
-        angular.zoomLevel = -1;
         var gridOn = true;
-        var scale = 2; //1:1'
 
         var rendererStats = new THREEx.RendererStats();
         rendererStats.domElement.style.position = 'absolute'
@@ -32,7 +29,7 @@ angular.module('coreapp')
 
             document.body.appendChild(renderer.domElement);
 
-            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, .01, 1000);
+            camera = new THREE.PerspectiveCamera(60, window.innerWidth / window.innerHeight, .01, 1000); // near and far params define the camera's near and far clipping
             //camera.position.set( 500, 0, 0 );
 
             controls = new THREE.OrbitControls(camera, renderer.domElement);
@@ -49,10 +46,10 @@ angular.module('coreapp')
 
             // world
 
-            var origin = worldframework.drawOriginPoint(originLength);
+            var origin = worldframework.drawOriginPoint();
             scene.add(origin);
 
-            var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
+            var grid = worldframework.drawGridToZoomLevel(camera.position.y, worldSettings.scale);
             grid.name = "grid";
             scene.add(grid);
 
@@ -71,14 +68,17 @@ angular.module('coreapp')
 
             // Reference shape
 
-            var geometry = new THREE.BoxGeometry(10 * scale, 10 * scale, 10 * scale);
+            var geometry = new THREE.BoxGeometry(
+            	10 * worldSettings.scale, 
+            	10 * worldSettings.scale, 
+            	10 * worldSettings.scale);
             var material = new THREE.MeshLambertMaterial({
                 color: 0xFF0000
             });
             var mesh = new THREE.Mesh(geometry, material);
             var cube = new THREE.Object3D();
             cube.add(mesh);
-            var position = (10 * scale) / 2
+            var position = (10 * worldSettings.scale) / 2
             cube.position.y = position;
             cube.position.x = position;
             cube.position.z = position;
@@ -117,7 +117,7 @@ angular.module('coreapp')
         function render() {
 
             if (gridOn) {
-                var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
+                var grid = worldframework.drawGridToZoomLevel(camera.position.y, worldSettings.scale);
                 if (grid !== undefined) {
 
                     removeGrid();
@@ -168,7 +168,7 @@ angular.module('coreapp')
                         gridOn = false;
                     } else {
                         angular.zoomLevel = -1; // refactor this hack
-                        var grid = worldframework.drawGridToZoomLevel(camera.position.y, scale, originLength);
+                        var grid = worldframework.drawGridToZoomLevel(camera.position.y, worldSettings.scale);
                         scene.add(grid);
                         gridOn = true;
 
