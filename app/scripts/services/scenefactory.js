@@ -49,7 +49,7 @@ angular.module('coreapp')
             var origin = worldframework.drawOriginPoint();
             scene.add(origin);
 
-            var grid = worldframework.drawGridToZoomLevel(camera.position.y, worldSettings.scale);
+            var grid = worldframework.drawGridToZoomLevel(camera.position.y);
             grid.name = "grid";
             scene.add(grid);
 
@@ -117,7 +117,7 @@ angular.module('coreapp')
         function render() {
 
             if (gridOn) {
-                var grid = worldframework.drawGridToZoomLevel(camera.position.y, worldSettings.scale);
+                var grid = worldframework.drawGridToZoomLevel(camera.position.y);
                 if (grid !== undefined) {
 
                     removeGrid();
@@ -167,8 +167,8 @@ angular.module('coreapp')
                         removeGrid();
                         gridOn = false;
                     } else {
-                        angular.zoomLevel = -1; // refactor this hack
-                        var grid = worldframework.drawGridToZoomLevel(camera.position.y, worldSettings.scale);
+                        worldSettings.zoomLevel = -1; // refactor this hack
+                        var grid = worldframework.drawGridToZoomLevel(camera.position.y);
                         scene.add(grid);
                         gridOn = true;
 

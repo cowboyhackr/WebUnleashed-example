@@ -20,7 +20,7 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'dynamicgridc',
+        controller: 'worldCtrl',
         controllerAs: 'vm'
       })
       .when('/about', {
