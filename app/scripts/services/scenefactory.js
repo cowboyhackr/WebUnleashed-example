@@ -167,7 +167,7 @@ angular.module('coreapp')
                         removeGrid();
                         gridOn = false;
                     } else {
-                        worldSettings.zoomLevel = -1; // refactor this hack
+                        worldSettings.zoomLevel = -999; // refactor this hack
                         var grid = worldframework.drawGridToZoomLevel(camera.position.y);
                         scene.add(grid);
                         gridOn = true;

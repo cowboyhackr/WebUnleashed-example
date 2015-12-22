@@ -12,7 +12,7 @@ angular
     'ngTouch'
   ])
   .value('worldSettings', {
-    zoomLevel: -1,
+    zoomLevel: -999,
     scale: 1,
     originLength: 1000
   })
