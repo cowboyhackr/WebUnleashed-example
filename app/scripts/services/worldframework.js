@@ -100,25 +100,25 @@ angular.module('coreapp')
             } else if (height <= -.5 * worldSettings.scale && height > -.1 * worldSettings.scale && worldSettings.zoomLevel !== -4) {
                 step = .5 * worldSettings.scale;
                 worldSettings.zoomLevel = -4;
-            } else if (height <= -1 * worldSettings.scale && height > -3 * worldSettings.scale && worldSettings.zoomLevel !== 4) {
+            } else if (height <= -1 * worldSettings.scale && height > -3 * worldSettings.scale && worldSettings.zoomLevel !== -5) {
                 step = 1 * worldSettings.scale;
                 worldSettings.zoomLevel = -5;
-            } else if (height <= -3 * worldSettings.scale && height > -6 * worldSettings.scale && worldSettings.zoomLevel !== 4) {
+            } else if (height <= -3 * worldSettings.scale && height > -6 * worldSettings.scale && worldSettings.zoomLevel !== -6) {
                 step = 3 * worldSettings.scale;
                 worldSettings.zoomLevel = -6;
-            } else if (height <= -6 * worldSettings.scale && height > -12 * worldSettings.scale && worldSettings.zoomLevel !== 4) {
+            } else if (height <= -6 * worldSettings.scale && height > -12 * worldSettings.scale && worldSettings.zoomLevel !== -7) {
                 step = 6 * worldSettings.scale;
                 worldSettings.zoomLevel = -7;
-            } else if (height <= -12 * worldSettings.scale && height > -24 * worldSettings.scale && worldSettings.zoomLevel !== 4) {
+            } else if (height <= -12 * worldSettings.scale && height > -24 * worldSettings.scale && worldSettings.zoomLevel !== -8) {
                 step = 12* worldSettings.scale;
                 worldSettings.zoomLevel = -8;
-            } else if (height <= -24 * worldSettings.scale && height > -60 * worldSettings.scale && worldSettings.zoomLevel !== 4) {
+            } else if (height <= -24 * worldSettings.scale && height > -60 * worldSettings.scale && worldSettings.zoomLevel !== -9) {
                 step = 24 * worldSettings.scale;
                 worldSettings.zoomLevel = -9;
-            } else if (height <= -60 * worldSettings.scale && height > -120 * worldSettings.scale && worldSettings.zoomLevel !== 4) {
+            } else if (height <= -60 * worldSettings.scale && height > -120 * worldSettings.scale && worldSettings.zoomLevel !== -10) {
                 step = 60 * worldSettings.scale;
                 worldSettings.zoomLevel = -10;
-            }else{
+            } else if (height < -120 * worldSettings.scale && worldSettings.zoomLevel !== -11) {
             	step = 120 * worldSettings.scale;
                 worldSettings.zoomLevel = -11;
             }
@@ -127,7 +127,7 @@ angular.module('coreapp')
                 var grid = this.drawGrid(step * 100, step);
                 grid.name = "grid";
                 console.log(step * 10);
-                				console.log(worldSettings.zoomLevel)
+                				console.log("zoom Level " + worldSettings.zoomLevel)
                 				console.log("height: " + height);
                 				console.log("step " + step);
                 return grid;
